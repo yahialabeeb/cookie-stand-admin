@@ -1,82 +1,80 @@
 import Head from 'next/head'
+import { useState } from 'react';
 
 export default function Home() {
+  const [store, set_data] = useState([]);
+  function storeHandler(event) {
+    event.preventDefault();
+
+    const saved = {
+      location: event.target.location.value,
+      minCustomers: event.target.min.value,
+      maxCustomers: event.target.max.value,
+      avgCookies: event.target.avg.value,
+
+    }
+    set_data(store => [...store, saved])
+
+  }
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+    <div className="min-h-screen py-2">
+
       <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>Cookie Stand Admin</title>
       </Head>
 
-      <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
-        <h1 className="text-6xl font-bold">
-          Welcome to{' '}
-          <a className="text-blue-600" href="https://nextjs.org">
-            Next.js!
-          </a>
-        </h1>
+      <header className="py-6 items-center text-3xl bg-green-400">
+        <p>Cookies Stand Admin</p>
+      </header>
 
-        <p className="mt-3 text-2xl">
-          Get started by editing{' '}
-          <code className="p-3 font-mono text-lg bg-gray-100 rounded-md">
-            pages/index.js
-          </code>
+      <main className="rounded shadow-md pt-15 pb-5">
+        <div className="bg-green-300 shadow-md rounded mx-40 px-4 pt-15 pb-2 mb-20">
+          <h1 className='my-6 pt-5 text-2xl text-center'>Create Cookie Stand</h1>
+          <form onSubmit={storeHandler}>
+
+            <div className="flex" >
+              <label className="" >Location</label>
+              <input name="location" className="flex-auto" />
+            </div>
+
+
+            <div className="flex my-4">
+              <div className="flex-col w-1/4 my-1">
+                <label>Min Customers per hour</label>
+                <input type='number' name="min" className="" />
+              </div>
+
+
+              <div className="flex-col w-1/4 my-1">
+                <label>Max Customers per hour</label>
+                <input type='number' name="max" className="" />
+              </div>
+
+
+              <div className="flex-col w-1/4 my-1">
+                <label>Average Cookies per Sale</label>
+                <input type='number' name="avg" className="" />
+              </div>
+
+              <button className="w-1/4 bg-green-500 ">Create</button>
+            </div>
+          </form>
+        </div>
+        <p className='text-center text-1xl my-5'>
+          Report Table Coming Soon...
         </p>
 
-        <div className="flex flex-wrap items-center justify-around max-w-4xl mt-6 sm:w-full">
-          <a
-            href="https://nextjs.org/docs"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Documentation &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Find in-depth information about Next.js features and API.
+        {store.map(item =>
+            <p className='my-3 text-center text-gray-600 text-1xl'>
+              {JSON.stringify(item)}
             </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Learn &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Learn about Next.js in an interactive course with quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Examples &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Discover and deploy boilerplate example Next.js projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Deploy &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
+          )
+        }           
       </main>
-
-      <footer className="flex items-center justify-center w-full h-24 border-t">
-        <a
-          className="flex items-center justify-center"
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className="h-4 ml-2" />
-        </a>
-      </footer>
+      
+      <footer className="items-center p-4 text-1xl bg-green-400" >
+        <p>&copy; 2021 </p>
+      </footer>  
     </div>
   )
 }
