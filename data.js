@@ -1,4 +1,5 @@
-export const data = [
+let data = [
+    "Location",
     "6am",
     "7am",
     "8am",
@@ -15,3 +16,4 @@ export const data = [
     "7pm",
     "Total"
 ]
+export default data
