@@ -1,10 +1,14 @@
 import data from "../../data.js"
-export default function ReportTable(props){
+import useResource from "../../hooks/useResource.js";
+import React, { useState, useEffect } from "react";
 
-    
+export default function ReportTable(props){
+    let x=1
+    const { resources, deleteResource } = useResource();
+    console.log(resources);
     return(
         <>
-        {props.generated.length ?
+        {resources ?
             <table className="w-1/2 mx-auto my-4">
                 <thead className='bg-green-500' >
                     {data.map(it => {
@@ -16,13 +20,21 @@ export default function ReportTable(props){
                     }    
                 </thead>
                 <tbody>
-                    {props.generated.map((item,idx)=>{
+                    {resources.map((item,idx)=>{
                         return (
                             <tr className={`bg-green-${idx % 2 ? 400 : 300}`} key={`${idx}`}>
-                            {item.map((i,idx)=>{
+                            {item.hourly_sales.map((i,idx)=>{
                                return(
-                                <th key={idx}>{i}</th>   
-                             
+                                 
+                                    (!idx) ? 
+
+                                    <th key={idx} className="flex">
+                                        <td className="flex pr-2">{i} <button onClick={() => deleteResource(item.id)} className="flex bg-red-700">🗑</button></td>
+                                    
+                                    </th>
+                                    : <th key={idx}>{i}</th>
+                                    
+                                
                                )
                                 
                             })}

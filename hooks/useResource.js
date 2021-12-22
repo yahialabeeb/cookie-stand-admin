@@ -1,7 +1,7 @@
 import axios from 'axios'
 import useSWR from 'swr'
 
-export const apiUrl = "https://yahiadjango.herokuapp.com/";
+export const apiUrl = "https://yahiadjango.herokuapp.com";
 import { useAuth } from '../contexts/auth'
 
 export default function useResource() {
@@ -17,7 +17,7 @@ export default function useResource() {
         }
 
         try {
-            const response = await axios.get(url, config());
+            const response = await axios.get(url+"/api/all", config());
 
             return response.data;
 
@@ -29,7 +29,7 @@ export default function useResource() {
     async function createResource(info) {
 
         try {
-            await axios.post(apiUrl, info, config());
+            await axios.post(apiUrl+"/api/all/", info, config());
             mutate(); // mutate causes complete collection to be refetched
         } catch (error) {
             handleError(error);
@@ -37,9 +37,9 @@ export default function useResource() {
     }
 
     async function deleteResource(id) {
-
+        
         try {
-            const url = apiUrl + id;
+            const url = apiUrl+"/api/" + id;
             await axios.delete(url, config());
             mutate(); // mutate causes complete collection to be refetched
         } catch (error) {
@@ -47,13 +47,6 @@ export default function useResource() {
         }
     }
 
-    async function updateResource(resource) {
-        // STRETCH
-        // Add ability for user to update an existing resource
-    }
-
-
-    // helper function to handle getting Authorization headers EXACTLY right
     function config() {
 
         return {
@@ -65,9 +58,6 @@ export default function useResource() {
 
     function handleError(error) {
         console.error(error);
-        // currently just log out on error
-        // but a common error will be short lived token expiring
-        // STRETCH: refresh the access token when it has expired
         logout();
     }
 
@@ -77,6 +67,5 @@ export default function useResource() {
         loading: tokens && !error && !data,
         createResource,
         deleteResource,
-        updateResource,
     }
 }

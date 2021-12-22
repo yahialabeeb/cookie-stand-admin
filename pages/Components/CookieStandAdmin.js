@@ -6,12 +6,14 @@ import CreateForm from './CreateForm'
 import ReportTable from "./ReportTable"
 
 import { useState } from 'react';
+import useResource from "../../hooks/useResource"
 
 
 export default function CookieStandAdmin(){
     const [store, set_data] = useState([]);
     const [generated, setgenerated] = useState([])
     const [totalBycol, setTotalBycol] = useState([])
+    const {createResource } = useResource()
     function storeHandler(event) {
         event.preventDefault();
         
@@ -22,6 +24,7 @@ export default function CookieStandAdmin(){
         avgCookies: event.target.avg.value,
         total:0
         }
+        
         set_data(store => [...store, saved])
         let hourly_sales=[saved.location]
         let total = ["Totals"]
@@ -33,8 +36,16 @@ export default function CookieStandAdmin(){
             
         }
         // totalAll = totalAll + saved.total
-        
         hourly_sales.push(saved.total)
+        let send = {
+            location: saved.location,
+            hourly_sales: hourly_sales,
+            minimum_customers_per_hour: saved.minCustomers,
+            maximum_customers_per_hour: saved.maxCustomers,
+           average_cookies_per_sale: saved.avgCookies,
+        }
+        createResource(send)
+   
         setgenerated(generated => [...generated, hourly_sales])
         console.log(generated);
         for (let k= 1;k<16;k++){
