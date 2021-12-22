@@ -53,7 +53,7 @@ export default function CookieStandAdmin(){
         <>
             <Head />
             <Header/>
-            <div className="px-4 pb-5 mx-40 mb-20 bg-green-300 rounded shadow-md pt-15" >
+            <div className="px-4 pb-5 mx-40 mb-20 bg-green-200 rounded shadow-md pt-15" >
                 <Main/>
                 <CreateForm storeHandler={storeHandler}/>  
             </div>

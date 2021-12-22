@@ -1,22 +1,16 @@
 
 import CookieStandAdmin from './Components/CookieStandAdmin';
+import LoginForm from './Components/LoginForm'
+import { useAuth } from '../contexts/auth';
+// import useResource from '../hooks/useResource'
 
 export default function Home() {
-  
+  const { user } = useAuth();
+  // const { resources, loading, createResource, deleteResource } = useResource();
   return (
     <div className="min-h-screen py-2">
 
-      <CookieStandAdmin/>
-
-      
-
-{/* 
-        {store.map(item =>
-            <p className='my-3 text-center text-gray-600 text-1xl'>
-              {JSON.stringify(item)}
-            </p>
-          )
-        }            */}
+      {user? <CookieStandAdmin/>:<LoginForm/>}
  
     </div>
   )

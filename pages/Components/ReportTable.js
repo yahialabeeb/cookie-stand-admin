@@ -19,9 +19,10 @@ export default function ReportTable(props){
                     {props.generated.map((item,idx)=>{
                         return (
                             <tr className={`bg-green-${idx % 2 ? 400 : 300}`} key={`${idx}`}>
-                            {item.map(i=>{
+                            {item.map((i,idx)=>{
                                return(
-                                <th>{i}</th>   
+                                <th key={idx}>{i}</th>   
+                             
                                )
                                 
                             })}
