@@ -3,9 +3,19 @@ import useResource from "../../hooks/useResource.js";
 import React, { useState, useEffect } from "react";
 
 export default function ReportTable(props){
-    let x=1
+    let total = ["Totals"]
     const { resources, deleteResource } = useResource();
-    console.log(resources);
+    if (resources){
+        for (let k= 1;k<16;k++){
+            let total1 = 0
+           for (let j= 0;j<resources.length;j++){ 
+           total1 = total1 + resources[j].hourly_sales[k]
+           } 
+           total.push(total1)
+        }
+        console.log(total);    
+    }
+
     return(
         <>
         {resources ?
@@ -46,7 +56,7 @@ export default function ReportTable(props){
 
                 </tbody>
                 <tfoot className='bg-green-500' >
-                    {props.totalBycol.map(item =>{
+                    {total.map(item =>{
                         return (
                             <th>{item}</th>
                         )
